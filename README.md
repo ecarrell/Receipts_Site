@@ -2,7 +2,7 @@
 
 ## Created by Ethan Carrell
 
-Repo Link: https://github.com/HUThreeFive/Ultimate-Chess.git
+Repo Link: https://github.com/ecarrell/Receipts_Site.git
 
 Summary: A basic website that takes input for shopping baskets and returns receipts in the format shown below, calculating
 all taxes and totals correctly.
