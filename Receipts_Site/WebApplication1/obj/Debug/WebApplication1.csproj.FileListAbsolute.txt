@@ -76,8 +76,6 @@ C:\Users\Ethan\source\repos\WebApplication1\WebApplication1\obj\Debug\WebApplica
 C:\Users\Ethan\source\repos\WebApplication1\WebApplication1\obj\Debug\WebApplication1.pdb
 F:\Win10-Storage\Users\Ethan\Documents\Github\Receipts_Site\obj\Debug\WebApplication1.dll
 F:\Win10-Storage\Users\Ethan\Documents\Github\Receipts_Site\obj\Debug\WebApplication1.pdb
-F:\Win10-Storage\Users\Ethan\Documents\Github\Receipts_Site\Receipts_Site\WebApplication1\obj\Debug\WebApplication1.dll
-F:\Win10-Storage\Users\Ethan\Documents\Github\Receipts_Site\Receipts_Site\WebApplication1\obj\Debug\WebApplication1.pdb
 F:\Win10-Storage\Users\Ethan\Documents\Github\Receipts_Site\Receipts_Site\WebApplication1\bin\WebApplication1.dll.config
 F:\Win10-Storage\Users\Ethan\Documents\Github\Receipts_Site\Receipts_Site\WebApplication1\bin\WebApplication1.dll
 F:\Win10-Storage\Users\Ethan\Documents\Github\Receipts_Site\Receipts_Site\WebApplication1\bin\WebApplication1.pdb
@@ -152,3 +150,5 @@ F:\Win10-Storage\Users\Ethan\Documents\Github\Receipts_Site\Receipts_Site\WebApp
 F:\Win10-Storage\Users\Ethan\Documents\Github\Receipts_Site\Receipts_Site\WebApplication1\obj\Debug\WebApplication1.csprojAssemblyReference.cache
 F:\Win10-Storage\Users\Ethan\Documents\Github\Receipts_Site\Receipts_Site\WebApplication1\obj\Debug\WebApplication1.csproj.CoreCompileInputs.cache
 F:\Win10-Storage\Users\Ethan\Documents\Github\Receipts_Site\Receipts_Site\WebApplication1\obj\Debug\WebApplication1.csproj.CopyComplete
+F:\Win10-Storage\Users\Ethan\Documents\Github\Receipts_Site\Receipts_Site\WebApplication1\obj\Debug\WebApplication1.dll
+F:\Win10-Storage\Users\Ethan\Documents\Github\Receipts_Site\Receipts_Site\WebApplication1\obj\Debug\WebApplication1.pdb
