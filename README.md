@@ -10,7 +10,12 @@ all taxes and totals correctly.
 
 "# Product Name at Price"  
 1 Chocolate bar at 0.85  
-1 Imported bottle of perfume at 27.99
+1 Imported bottle of perfume at 27.99  
+
+#### You will need to download jquery for the website to function properly. I used npm manager in Visual Studio to accomplish this.  
+```
+npm install jquery
+```
 
 
 ## Code design:
