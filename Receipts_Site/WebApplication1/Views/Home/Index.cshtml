@@ -24,6 +24,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#inputForm").submit(function (e) {
+                // Prevent page reload
                 e.preventDefault();
 
                 $.ajax({
@@ -32,12 +33,11 @@
                     data: { text: $("#inputText").val() },
                     cache: false,
                     success: function (data) {
-                        console.log("SUCCESS");
                         console.log(data);
-                        $("outputText").val(data);
+                        $("#outputText").val(data);
                     },
                     error: function (xhr, status) {
-                        $("outputText").val("There was an error processing the input text.");
+                        $("#outputText").val("There was an error processing the input text.");
                     }
                 });
             });

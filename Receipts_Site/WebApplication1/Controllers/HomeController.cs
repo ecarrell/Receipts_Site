@@ -17,11 +17,14 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult ProcessInput (string text)
         {
-            //Output model = CreateOutput(text);
-            //return View(model);
             return Json(CreateOutput(text), JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Main function that handles the processing of the data
+        /// </summary>
+        /// <param name="input">Data string</param>
+        /// <returns>A string for the view</returns>
         public string CreateOutput(string input)
         {
             string[] lines = input.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
@@ -33,8 +36,6 @@ namespace WebApplication1.Controllers
             foreach (string s in lines)
             {
                 // Format is "{ Quantity } { Product Name } at { Product Price }
-                bool skipLine = false;
-
                 try
                 {
                     double.TryParse(s.Substring(s.IndexOf(" at ") + 4, s.Length - (s.IndexOf(" at ") + 4)), out price);
@@ -43,32 +44,35 @@ namespace WebApplication1.Controllers
                 catch (FormatException e)
                 {
                     Console.WriteLine(e.Message);
-                    skipLine = true;
                 }
 
-                if (skipLine == false)
-                    myCart.AddProductToCart(quantity, s.Substring(2, s.IndexOf(" at ") - 1).Trim(), price);
+                if (price > 0 && quantity > 0)
+                    myCart.AddProductToCart(quantity, s.Substring(1, s.IndexOf(" at ") - 1).Trim(), price);
             }
 
             List<Product> cartProducts;
             cartProducts = myCart.GetAllProducts();
+
+            if (cartProducts.Count < 1)
+                return "No products were entered or there is a problem with the input text.";
+
             int productQuantity = 0;
 
             // Build the output string
             for (int i = 0; i < cartProducts.Count; i++)
             {
-                output += cartProducts[i].Name + ": " + myCart.GetSubTotalWithTax(cartProducts[i]);
+                output += cartProducts[i].Name + ": " + myCart.GetSubTotalWithTax(cartProducts[i]).ToString("0.00");
 
                 productQuantity = myCart.GetProductQuantity(cartProducts[i]);
 
                 if (productQuantity > 1)
-                    output += " (" + productQuantity + " @ " + cartProducts[i].Price + ")";
+                    output += " (" + productQuantity + " @ " + myCart.GetProductPriceWithTax(cartProducts[i]).ToString("0.00") + ")";
 
                 output += "\n";
             }
 
             output += "Sales Taxes: " + myCart.GetSalesTax().ToString("0.00") + "\n";
-            output += "Total: " + myCart.GetTotal();
+            output += "Total: " + myCart.GetTotal().ToString("0.00");
 
             return output;
         }

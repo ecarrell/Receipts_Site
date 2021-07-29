@@ -102,6 +102,19 @@ namespace WebApplication1.Models
         }
 
         /// <summary>
+        /// Gets the price of a product with tax included
+        /// </summary>
+        /// <param name="item">Product</param>
+        /// <returns>Product's price with tax included</returns>
+        public double GetProductPriceWithTax (Product item)
+        {
+            if (!(item == null || String.IsNullOrEmpty(item.Name)))
+                return (ProductTax[item.Name] / (double)Quantities[item.Name]) + item.Price;
+            else
+                return 0;
+        }
+
+        /// <summary>
         /// Gets the quantity for a product
         /// </summary>
         /// <param name="item">Product</param>
@@ -128,7 +141,7 @@ namespace WebApplication1.Models
             Products.Add(newProduct);
             SetProductQuantity(newProduct, quantity);
             SetProductSubTotal(newProduct);
-            SetProductTax(newProduct);
+            SetProductTax(newProduct, 0);
         }
 
         private void UpdateProduct(string itemName, int quantity)
@@ -136,7 +149,7 @@ namespace WebApplication1.Models
             Product product = Products.Where(x => x.Name == itemName).FirstOrDefault();
             SetProductQuantity(product, quantity);
             SetProductSubTotal(product);
-            SetProductTax(product);
+            SetProductTax(product, quantity);
         }
 
         /// <summary>
@@ -178,16 +191,16 @@ namespace WebApplication1.Models
         /// Sets the tax for a product
         /// </summary>
         /// <param name="item">Product</param>
-        private void SetProductTax (Product item)
+        private void SetProductTax (Product item, int quantity)
         {
             if (item != null && item.Price > 0)
             {
                 if (ProductTax.ContainsKey(item.Name))
                     // Update tax
-                    ProductTax[item.Name] = Tax.GetProductTax(item.Price * (double)Quantities[item.Name], item.Name);
+                    ProductTax[item.Name] = Tax.GetProductTax(item) * (double)Quantities[item.Name];
                 else
                     // Add tax
-                    ProductTax.Add(item.Name, Tax.GetProductTax(item.Price * (double)Quantities[item.Name], item.Name));              
+                    ProductTax.Add(item.Name, Tax.GetProductTax(item));              
             }
         }
         #endregion

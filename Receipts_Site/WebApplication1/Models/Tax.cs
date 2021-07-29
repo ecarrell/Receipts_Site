@@ -18,25 +18,25 @@ namespace WebApplication1.Models
         /// <param name="subTotal">Product's subtotal</param>
         /// <param name="productName">Product name</param>
         /// <returns></returns>
-        public static double GetProductTax (double subTotal, string productName)
+        public static double GetProductTax (Product item)
         {
             double taxAmount = 0;
 
-            if (!IsTaxExempt(productName))
+            if (!IsTaxExempt(item.Name))
             {
                 // Add tax
-                taxAmount += subTotal * SalesTaxRate;
+                taxAmount += item.Price * SalesTaxRate;
             }
 
-            if (IsImportProduct(productName))
+            if (IsImportProduct(item.Name))
             {
                 // Add import tax
-                taxAmount += subTotal * ImportTaxRate;
+                taxAmount += item.Price * ImportTaxRate;
             }
 
             if (taxAmount > 0)
-                // Round to the nearest 5 cents
-                return Math.Round((Math.Round(taxAmount * 20, MidpointRounding.AwayFromZero) / 20), 1);
+                // Round up to the nearest 5 cents
+                return Math.Round((Math.Ceiling(taxAmount * 20) / 20), 2);
             else
                 return taxAmount;
         }
