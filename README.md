@@ -8,8 +8,8 @@ Repo Link: https://github.com/ecarrell/Receipts_Site.git
 A basic website that takes input for shopping baskets and returns receipts in the format shown below, calculating
 all taxes and totals correctly.
 
-"1 Product Name at price"
-1 Chocolate bar at 0.85
+"# Product Name at Price"  
+1 Chocolate bar at 0.85  
 1 Imported bottle of perfume at 27.99
 
 
