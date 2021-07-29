@@ -57,7 +57,7 @@ namespace WebApplication1.Controllers
             // Build the output string
             for (int i = 0; i < cartProducts.Count; i++)
             {
-                output += cartProducts[i].Name + ": " + myCart.GetSubTotal(cartProducts[i]);
+                output += cartProducts[i].Name + ": " + myCart.GetSubTotalWithTax(cartProducts[i]);
 
                 productQuantity = myCart.GetProductQuantity(cartProducts[i]);
 
@@ -67,7 +67,7 @@ namespace WebApplication1.Controllers
                 output += "\n";
             }
 
-            output += "Sales Taxes: " + myCart.GetSalesTax() + "\n";
+            output += "Sales Taxes: " + myCart.GetSalesTax().ToString("0.00") + "\n";
             output += "Total: " + myCart.GetTotal();
 
             return output;

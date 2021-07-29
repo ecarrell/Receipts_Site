@@ -83,35 +83,22 @@ namespace WebApplication1.Models
         /// </summary>
         /// <param name="item">Product</param>
         /// <returns>Product's subtotal</returns>
-        public double GetSubTotal (Product item)
+        public double GetSubTotalWithTax (Product item)
         {
+            double total = 0;
+
             if (!(item == null || String.IsNullOrEmpty(item.Name)))
             {
                 if (ProductSubTotals.ContainsKey(item.Name))
-                    return ProductSubTotals[item.Name];
+                    total += ProductSubTotals[item.Name];
                 else
-                    return 0;
-            }
-            else
-                return 0;
-        }
+                    return total;
 
-        /// <summary>
-        /// Gets the tax for a product
-        /// </summary>
-        /// <param name="item">Product</param>
-        /// <returns>Product's subtotal</returns>
-        public double GetProductTax(Product item)
-        {
-            if (!(item == null || String.IsNullOrEmpty(item.Name)))
-            {
                 if (ProductTax.ContainsKey(item.Name))
-                    return ProductTax[item.Name];
-                else
-                    return 0;
+                    total += ProductTax[item.Name];
             }
-            else
-                return 0;
+
+            return total;
         }
 
         /// <summary>
