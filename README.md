@@ -12,7 +12,7 @@ all taxes and totals correctly.
 1 Chocolate bar at 0.85  
 1 Imported bottle of perfume at 27.99  
 
-#### You will need to download jquery for the website to function properly. I used npm manager in Visual Studio to accomplish this.  
+#### You may need to download jquery if you don't have it installed for the website to function properly. I used npm manager in Visual Studio to accomplish this.  
 ```
 npm install jquery
 ```
