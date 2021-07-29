@@ -20,20 +20,25 @@ namespace WebApplication1.Models
         /// <returns></returns>
         public static double GetProductTax (double subTotal, string productName)
         {
+            double taxAmount = 0;
+
             if (!IsTaxExempt(productName))
             {
                 // Add tax
-                subTotal += subTotal * SalesTaxRate;
+                taxAmount += subTotal * SalesTaxRate;
             }
 
             if (IsImportProduct(productName))
             {
                 // Add import tax
-                subTotal += subTotal * ImportTaxRate;
+                taxAmount += subTotal * ImportTaxRate;
             }
 
-            // Round to the nearest 5 cents
-            return Math.Round((Math.Round(subTotal * 20, MidpointRounding.AwayFromZero) / 20), 1);
+            if (taxAmount > 0)
+                // Round to the nearest 5 cents
+                return Math.Round((Math.Round(taxAmount * 20, MidpointRounding.AwayFromZero) / 20), 1);
+            else
+                return taxAmount;
         }
 
         /// <summary>
@@ -43,7 +48,13 @@ namespace WebApplication1.Models
         /// <returns>True if the product name is tax exempt</returns>
         private static bool IsTaxExempt (string name)
         {
-            return ExemptItems.Contains(name);
+            foreach (string exemption in ExemptItems)
+            {
+                if (name.ToUpper().Contains(exemption.ToUpper()))
+                    return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -53,7 +64,7 @@ namespace WebApplication1.Models
         /// <returns>True if the product is imported</returns>
         private static bool IsImportProduct(string name)
         {
-            return name.Contains(" " + ImportKeyWord + " ");
+            return name.ToUpper().Contains(ImportKeyWord.ToUpper() + " ");
         }
     }
 }

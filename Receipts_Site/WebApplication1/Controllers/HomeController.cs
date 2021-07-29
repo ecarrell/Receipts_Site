@@ -34,9 +34,10 @@ namespace WebApplication1.Controllers
             {
                 // Format is "{ Quantity } { Product Name } at { Product Price }
                 bool skipLine = false;
+
                 try
                 {
-                    double.TryParse(s.Substring(s.IndexOf("at") + 3, s.Length - (s.IndexOf("at") + 3)), out price);
+                    double.TryParse(s.Substring(s.IndexOf(" at ") + 4, s.Length - (s.IndexOf(" at ") + 4)), out price);
                     Int32.TryParse(s.Substring(0, 1), out quantity);
                 }
                 catch (FormatException e)
@@ -46,9 +47,7 @@ namespace WebApplication1.Controllers
                 }
 
                 if (skipLine == false)
-                {
-                    myCart.AddProductToCart(quantity, s.Substring(2, s.IndexOf("at") - 2), price);
-                }
+                    myCart.AddProductToCart(quantity, s.Substring(2, s.IndexOf(" at ") - 1).Trim(), price);
             }
 
             List<Product> cartProducts;
@@ -63,9 +62,7 @@ namespace WebApplication1.Controllers
                 productQuantity = myCart.GetProductQuantity(cartProducts[i]);
 
                 if (productQuantity > 1)
-                {
                     output += " (" + productQuantity + " @ " + cartProducts[i].Price + ")";
-                }
 
                 output += "\n";
             }

@@ -31,15 +31,11 @@ namespace WebApplication1.Models
         public void AddProductToCart(int quantity, string itemName, double price)
         {
             if (Products.Where(x => x.Name == itemName).Any())
-            {
                 // Update product
                 UpdateProduct(itemName, quantity);
-            }
             else
-            {
                 // Add product
                 AddProduct(itemName, quantity, price);
-            }
         }
 
         /// <summary>
@@ -92,9 +88,25 @@ namespace WebApplication1.Models
             if (!(item == null || String.IsNullOrEmpty(item.Name)))
             {
                 if (ProductSubTotals.ContainsKey(item.Name))
-                {
                     return ProductSubTotals[item.Name];
-                }
+                else
+                    return 0;
+            }
+            else
+                return 0;
+        }
+
+        /// <summary>
+        /// Gets the tax for a product
+        /// </summary>
+        /// <param name="item">Product</param>
+        /// <returns>Product's subtotal</returns>
+        public double GetProductTax(Product item)
+        {
+            if (!(item == null || String.IsNullOrEmpty(item.Name)))
+            {
+                if (ProductTax.ContainsKey(item.Name))
+                    return ProductTax[item.Name];
                 else
                     return 0;
             }
@@ -112,9 +124,7 @@ namespace WebApplication1.Models
             if (!(item == null || String.IsNullOrEmpty(item.Name)))
             {
                 if (Quantities.ContainsKey(item.Name))
-                {
                     return Quantities[item.Name];
-                }
                 else
                     return 0;
             }
@@ -151,16 +161,11 @@ namespace WebApplication1.Models
             if (item != null && item.Name != null)
             {
                 if (ProductSubTotals.ContainsKey(item.Name))
-                {
                     // Update subtotal
-                    ProductSubTotals[item.Name] = Tax.GetProductTax(item.Price * (double)Quantities[item.Name], item.Name);
-                    ProductTax[item.Name] = Tax.GetProductTax(item.Price * (double)Quantities[item.Name], item.Name);
-                }
+                    ProductSubTotals[item.Name] = item.Price * Quantities[item.Name];
                 else
-                {
                     // Add subtotal
                     ProductSubTotals.Add(item.Name, item.Price);
-                }
             }
         }
 
@@ -191,15 +196,11 @@ namespace WebApplication1.Models
             if (item != null && item.Price > 0)
             {
                 if (ProductTax.ContainsKey(item.Name))
-                {
                     // Update tax
                     ProductTax[item.Name] = Tax.GetProductTax(item.Price * (double)Quantities[item.Name], item.Name);
-                }
                 else
-                {
                     // Add tax
-                    ProductTax.Add(item.Name, Tax.GetProductTax(item.Price * (double)Quantities[item.Name], item.Name));
-                }                
+                    ProductTax.Add(item.Name, Tax.GetProductTax(item.Price * (double)Quantities[item.Name], item.Name));              
             }
         }
         #endregion
