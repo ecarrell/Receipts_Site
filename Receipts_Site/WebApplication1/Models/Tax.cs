@@ -10,7 +10,7 @@ namespace WebApplication1.Models
         private static double SalesTaxRate = 0.1;
         private static string ImportKeyWord = "Imported";
         private static double ImportTaxRate = 0.05;
-        private static List<string> ExemptItems = new List<string> { "Books", "Chocolate", "Pills" };
+        private static List<string> ExemptItems = new List<string> { "Book", "Chocolate", "Pills" };
 
         /// <summary>
         /// Add applicable taxes to a specific product

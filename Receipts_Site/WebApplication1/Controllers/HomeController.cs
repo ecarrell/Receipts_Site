@@ -36,7 +36,7 @@ namespace WebApplication1.Controllers
                 bool skipLine = false;
                 try
                 {
-                    double.TryParse(s.Substring(s.IndexOf("at") + 3, s.Length - s.IndexOf("at")), out price);
+                    double.TryParse(s.Substring(s.IndexOf("at") + 3, s.Length - (s.IndexOf("at") + 3)), out price);
                     Int32.TryParse(s.Substring(0, 1), out quantity);
                 }
                 catch (FormatException e)
@@ -47,8 +47,7 @@ namespace WebApplication1.Controllers
 
                 if (skipLine == false)
                 {
-                    price = Convert.ToDouble(s.Substring(s.IndexOf("at") + 3, s.Length - s.IndexOf("at")));
-                    myCart.AddProductToCart(quantity, s.Substring(2, s.IndexOf("at")), price);
+                    myCart.AddProductToCart(quantity, s.Substring(2, s.IndexOf("at") - 2), price);
                 }
             }
 

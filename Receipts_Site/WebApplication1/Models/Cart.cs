@@ -12,6 +12,14 @@ namespace WebApplication1.Models
         private Dictionary<string, double> ProductTax { get; set; }
         private List<Product> Products { get; set; }
 
+        public Cart()
+        {
+            Quantities = new Dictionary<string, int>();
+            ProductSubTotals = new Dictionary<string, double>();
+            ProductTax = new Dictionary<string, double>();
+            Products = new List<Product>();
+        }
+
         #region Public methods
 
         /// <summary>
@@ -123,6 +131,7 @@ namespace WebApplication1.Models
             Products.Add(newProduct);
             SetProductQuantity(newProduct, quantity);
             SetProductSubTotal(newProduct);
+            SetProductTax(newProduct);
         }
 
         private void UpdateProduct(string itemName, int quantity)
@@ -130,6 +139,7 @@ namespace WebApplication1.Models
             Product product = Products.Where(x => x.Name == itemName).FirstOrDefault();
             SetProductQuantity(product, quantity);
             SetProductSubTotal(product);
+            SetProductTax(product);
         }
 
         /// <summary>
@@ -140,18 +150,16 @@ namespace WebApplication1.Models
         {
             if (item != null && item.Name != null)
             {
-                double productTax;
-
-                if (Quantities.ContainsKey(item.Name))
+                if (ProductSubTotals.ContainsKey(item.Name))
                 {
-                    // Update Subtotal
+                    // Update subtotal
                     ProductSubTotals[item.Name] = Tax.GetProductTax(item.Price * (double)Quantities[item.Name], item.Name);
+                    ProductTax[item.Name] = Tax.GetProductTax(item.Price * (double)Quantities[item.Name], item.Name);
                 }
                 else
                 {
-                    // Add Subtotal
-                    productTax = Tax.GetProductTax(item.Price * (double)Quantities[item.Name], item.Name);
-                    ProductSubTotals.Add(item.Name, productTax);
+                    // Add subtotal
+                    ProductSubTotals.Add(item.Name, item.Price);
                 }
             }
         }
@@ -163,7 +171,7 @@ namespace WebApplication1.Models
         /// <param name="quantity">Quantity of the product</param>
         private void SetProductQuantity (Product item, int quantity)
         {
-            if (item != null && item.Name != null && quantity > 1)
+            if (item != null && item.Name != null && quantity > 0)
             {
                 if (Quantities.ContainsKey(item.Name))
                     // Update quantity
