@@ -1,18 +1,17 @@
 ﻿@{
     ViewBag.Title = "Home";
 }
-
-<div class="jumbotron">
-    <h1 style="text-align:center">Sales Tax</h1>
+ <div class="jumbotron">
+        <h1 style="text-align:center">Sales Tax</h1>
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <h2>Input</h2>
-        <form>
-            <textarea id="inputText" style="resize: none;" rows="8" cols="50"></textarea>
+        <form id="inputForm">
+            <textarea id="inputText" name="inputText" style="resize: none;" rows="8" cols="50"></textarea>
             <br /><br />
-            <input type="submit" value="Submit" />
+            <input type="submit" value="submit" />
         </form>
     </div>
     <div class="col-md-4">
@@ -20,3 +19,28 @@
         <textarea id="outputText" style="resize: none;" rows="8" cols="50"></textarea>
     </div>
 </div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#inputForm").submit(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: "Get",
+                    url: '@Url.Action("ProcessInput", "Home")',
+                    data: { text: $("#inputText").val() },
+                    cache: false,
+                    success: function (data) {
+                        console.log("SUCCESS");
+                        console.log(data);
+                        $("outputText").val(data);
+                    },
+                    error: function (xhr, status) {
+                        $("outputText").val("There was an error processing the input text.");
+                    }
+                });
+            });
+        });
+    </script>
+}

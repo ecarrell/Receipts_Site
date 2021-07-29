@@ -20,7 +20,7 @@ namespace WebApplication1.Models
         /// <param name="itemName">Name of the product</param>
         /// <param name="quantity">Quantity of the product</param>
         /// <param name="price">Price of the product</param>
-        public void AddProductToCart(string itemName, int quantity, double price)
+        public void AddProductToCart(int quantity, string itemName, double price)
         {
             if (Products.Where(x => x.Name == itemName).Any())
             {
@@ -37,16 +37,16 @@ namespace WebApplication1.Models
         /// <summary>
         /// Gets the total amount of tax
         /// </summary>
-        public double GetTotalTax()
+        public double GetSalesTax()
         {
-            double totalTax = 0;
+            double salesTax = 0;
 
             foreach (var item in ProductTax)
             {
-                totalTax += item.Value;
+                salesTax += item.Value;
             }
 
-            return totalTax;
+            return salesTax;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace WebApplication1.Models
                 total += item.Value;
             }
 
-            total += GetTotalTax();
+            total += GetSalesTax();
             return total;
         }
 
